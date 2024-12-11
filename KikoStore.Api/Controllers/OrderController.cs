@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KikoStore.Api.Controllers;
 [Authorize]
-public class OrdersController(ICartServices cartService, IUnitOfWork unit) : BaseApiController
+public class OrdersController(ICartService cartService, IUnitOfWork unit) : BaseApiController
 {
     [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto orderDto)
