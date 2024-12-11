@@ -4,7 +4,6 @@ import { Component, inject } from '@angular/core';
 import { CartItemComponent } from "./cart-item/cart-item.component";
 import { OrderSummaryComponent } from "../../shared/components/order-summary/order-summary.component";
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,9 +13,5 @@ import { Router } from '@angular/router';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
-  private router = inject(Router)
-  cartService = inject(CartService);
-  
-  onAction() {
-    this.router.navigateByUrl('/shop');
-  }}
+cartService = inject(CartService);
+}

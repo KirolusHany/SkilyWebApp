@@ -27,8 +27,6 @@ builder.Services.AddDbContext<StoreContext>(
     .GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
-builder.Services.AddScoped<IPaymentService,PaymentService>();
-builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddCors();
 builder.Services.AddSingleton<IConnectionMultiplexer>(config => 
@@ -41,24 +39,15 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 builder.Services.AddSingleton<ICartService,CartService>();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
-builder.Services.AddSignalR();
 var app = builder.Build();
 
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 .WithOrigins("http://localhost:4200","https://localhost:4200"));
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>();
-app.MapHub<NotificationHub>("/hub/notifications");
-app.MapFallbackToController("Index","Fallback");
+
 
 try
 {
